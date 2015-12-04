@@ -1,0 +1,579 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>clippertube.com - home page - dashboard</title>
+    <link rel="stylesheet" href="<?php echo $base_url; ?>css/styles.css<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>">
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>js/vendors/jquery-ui-1.11.4.custom/jquery-ui.min.css">
+    <script src="<?php echo $base_url; ?>js/vendors/video-js/video.min.js"></script>
+    <script src="<?php echo $base_url; ?>js/vendors/video-js/videojs-youtube-master/src/youtube.js"></script>
+
+</head>
+
+<body>
+
+    <!--    START wrapper-->
+    <div id="wrapper">
+
+        <header>
+            <h1>clipper</h1>
+            <nav>
+
+                <ul>
+                    <li><a href="#" class="projectDashboardLnk">Project Dashboard</a></li>
+                    <?php if( is_user_logged_in()){
+
+						echo '<li><a href="'.wp_logout_url( $redirect ).'">Log out</a></li>';
+
+					 }else{
+						 echo '<li><a href="http://reachwill.co.uk/clipper2.1/wp-login.php">Login</a><br></li>';
+					 }?>
+                    <li><a href="http://blog.clippertube.com/index.php/contact/">Feedback</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+        <!--START Dashboard Page-->
+        <section id="dashboardPage" class="page">
+            <!--START New Project Pane-->
+            <div id="newProjectPane" class="panel">
+                <form id="newProjectFrm">
+                    <input type="text" id="newProjectTitle" placeholder="Untitled Project">
+                    <button id="createProjectBtn"><i class="icon-doc-new">Create New Project</i></button>
+                </form>
+            </div>
+            <!--END New Project Pane-->
+
+            <!--START Existing Projects Pane-->
+            <div id="existingProjectsPane" class="panel"></div>
+            <!--END Existing Projects Pane-->
+
+        </section>
+        <!--END Dashboard Page-->
+
+
+        <!--START Project Page-->
+        <section id="projectPage" class="page">
+
+            <!--START Project Page Header-->
+            <header>
+                <h1 id="projectTitle"></h1>
+                <nav>
+                    <ul>
+                        <li><a href="#" data-view="collectionsSection">Collections</a></li>
+                        <li><a href="#" data-view="projectResourcesSection">Project Resources<span id="numResources"></span></a></li>
+                        <li><a href="#" data-view="cliplistsSection">Project Cliplist<span class="numClips"></span></a></li>
+                        <!--<li><a href="#" data-view="clipsSection">Project Clips</a></li>-->
+                    </ul>
+                </nav>
+            </header>
+            <!--END Project Page Header-->
+
+
+            <!--START Collections Section-->
+
+            <section id="collectionsSection">
+            	<div class="instruct">
+                	<p>Start by searching and adding videos to the project resources. Once you have resources added to the project, proceed to creating clips in the Project Resources section.</p>
+                </div>
+
+
+
+
+
+
+                <!--START Youtube search interface-->
+                <div id="accordion>">
+
+
+                <div id="youtubeSearch" class="panel">
+                    <h2>Search Youtube</h2>
+                    <div id="buttons">
+                        <label>
+                            <input id="query" value='vegetables' type="text" />
+                            <!--<button id="youtubeSearchBtn" disabled><i class="icon-search"></i></button>-->
+                            <a href="#" id="youtubeSearchBtn" class="linkBtn"><i class="icon-search"></i></a>
+                        </label>
+                    </div>
+
+                    <div id="searchResults"></div>
+                    <div class="content">
+
+                    </div>
+                </div>
+                <!--END Youtube search interface-->
+
+                <!--START BBC Audio browse interface-->
+                <!--<div id="BBCAudioFileSearch" class="panel remoteCollection">
+                    <h2>BBC Audio Collection</h2>
+                    <div class="content">
+                        <ul>
+                            <li><a href="#" class="wellcomeLink" data-videoid="http://reachwill.co.uk/clipper2.1/wp-content/media/DesertIslandDiscs-19641226-JackDeManio.mp3" data-title="Desert Island Discs - Jack De Manio" data-description="Audio on the BBC servers" data-sourcetype="mp3">Desert Island Discs - Jack De Manio</a>
+                            <a class="addToProjectLnk linkBtn" data-videoid="http://reachwill.co.uk/clipper2.1/wp-content/media/DesertIslandDiscs-19641226-JackDeManio.mp3" data-title="Desert Island Discs - Jack De Manio" data-description="Audio on the BBC servers" data-sourcetype="mp3" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/audio-resource.png" href="#">Add to Project</a></li>
+
+
+
+                        </ul>
+                    </div>
+                </div>-->
+                <!--END BBC Audio browse interface-->
+
+
+
+                <!--START The Roslin browse interface-->
+                <div id="roslin" class="panel remoteCollection">
+                    <h2>The Roslin Institute</h2>
+                    <div class="content">
+                        <ul>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://reachwill.co.uk/elife04000v003.mp4" data-title="Magnified clip of Zeiss Capture" data-description="Magnified clip of Zeiss Capture.." data-sourcetype="remote">Clip 1</a><a class="addToProjectLnk linkBtn" data-videoid="http://reachwill.co.uk/elife04000v003.mp4" data-title="Magnified clip of Zeiss Capture" data-description="Magnified clip of Zeiss Capture.." data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/1441652014_film_clip_movie_timestamp.svg" href="#"><i class="icon-plus"></i></a></li>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://reachwill.co.uk/mmc2.mp4" data-title="Magnified clip of Zeiss Capture" data-description="Magnified clip of Zeiss Capture.." data-sourcetype="remote">Clip 2</a><a class="addToProjectLnk linkBtn" data-videoid="http://reachwill.co.uk/mmc2.mp4" data-title="Magnified clip of Zeiss Capture" data-description="Magnified clip of Zeiss Capture.." data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/1441652014_film_clip_movie_timestamp.svg" href="#"><i class="icon-plus"></i></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!--END Roslin browse interface-->
+
+
+
+
+                <!--START The Royal Conservatoire of Scotland browse interface-->
+                <div id="royalConservatoire" class="panel remoteCollection">
+                    <h2>The Royal Conservatoire of Scotland</h2>
+                    <div class="content">
+                        <ul>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://medea.rcs.ac.uk/wp-content/uploads/2015/01/Croydon-England.mp3" data-title="Croydon Accent" data-description="Audio file of accents from the Croydon area.." data-sourcetype="remote">Croydon Accent</a><a class="addToProjectLnk linkBtn" data-videoid="http://medea.rcs.ac.uk/wp-content/uploads/2015/01/Croydon-England.mp3" data-title="Croydon Accent" data-description="Audio file of accents from the Croydon area.." data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/1441652014_film_clip_movie_timestamp.svg" href="#"><i class="icon-plus"></i></a></li>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://medea.rcs.ac.uk/wp-content/uploads/2015/08/England-Yorkshire-Scarborough.mp3" data-title="Yorkshire Accent" data-description="Audio file of accents from the Yorkshire area.." data-sourcetype="remote">Yorkshire Accent</a><a class="addToProjectLnk linkBtn" data-videoid="http://medea.rcs.ac.uk/wp-content/uploads/2015/08/England-Yorkshire-Scarborough.mp3" data-title="Yorkshire Accent" data-description="Audio file of accents from the Yorkshire area.." data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/1441652014_film_clip_movie_timestamp.svg" href="#"><i class="icon-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--END Wellcome Foundation browse interface-->
+
+
+                <!--START BBC browse interface-->
+                <div id="BBCFileSearch" class="panel remoteCollection">
+                    <h2>BBC Collection</h2>
+                    <div class="content">
+                        <ul>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://reachwill.co.uk/clipper2.1/wp-content/media/findingnewsmasterclassfinal_fido.mp4" data-title="Finding news masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote">Finding news masterclass video</a><a class="addToProjectLnk linkBtn" data-videoid="http://downloads.bbc.co.uk/schools/school-report/findingnewsmasterclassfinal_fido.mp4" data-title="Finding news masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/eyecandy/BBC-logo.jpg" href="#"><i class="icon-plus"></i></a></li>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="http://downloads.bbc.co.uk/schools/school-report/interview_mclass.mp4" data-title="Interviewing masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote">Interviewing masterclass video</a><a class="addToProjectLnk linkBtn" data-videoid="http://downloads.bbc.co.uk/schools/school-report/interview_mclass.mp4" data-title="Interviewing masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/eyecandy/BBC-logo.jpg" href="#"><i class="icon-plus"></i></a></li>
+                            <li><a title="Add to project" href="#" class="wellcomeLink" data-videoid="http://downloads.bbc.co.uk/schools/school-report/scriptwritingmasterclassfinal_fido.mp4" data-title="Scriptwriting masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote">Scriptwriting masterclass video</a><a class="addToProjectLnk linkBtn" data-videoid="http://downloads.bbc.co.uk/schools/school-report/scriptwritingmasterclassfinal_fido.mp4" data-title="Scriptwriting masterclass video" data-description="Video on the BBC servers" data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/eyecandy/BBC-logo.jpg" href="#"><i class="icon-plus"></i></a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <!--END BBC browse interface-->
+
+
+
+                <!--START Wellcome Foundation browse interface-->
+                <div id="wellcomeFileSearch" class="panel remoteCollection">
+                    <h2>Wellcome Trust Collection</h2>
+                    <div class="content">
+                        <ul>
+                            <li><a title="Add to project"  href="#" class="wellcomeLink" data-videoid="https://s3-eu-west-1.amazonaws.com/wdl-video-open/mp4/3d380cc7-9bd6-4883-bb8b-895e5b95c195.mp4" data-title="Dying for a smoke" data-description="Cartoon about smoking.." data-sourcetype="remote">Video 1</a><a class="addToProjectLnk linkBtn" data-videoid="https://s3-eu-west-1.amazonaws.com/wdl-video-open/mp4/3d380cc7-9bd6-4883-bb8b-895e5b95c195.mp4" data-title="Dying for a smoke" data-description="Cartoon about smoking.." data-sourcetype="remote" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/icons/1441652014_film_clip_movie_timestamp.svg" href="#"><i class="icon-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--END Wellcome Foundation browse interface-->
+
+
+				<!--START Local file browse interface-->
+                <div id="localFileSearch" class="panel">
+                    <h2>Local Media Collection</h2>
+                    <div class="content">
+
+                    </div>
+                    <input type="file" accept="video/mp4,video/x-m4v,video/*,audio/mp3" id="localSearchInput" />
+                    <a title="Add to project"  class="addToProjectLnk linkBtn" href="#"><i class="icon-plus"></i></a>
+                </div>
+                <!--END Local file browse interface-->
+
+                <!--START paste URL interface-->
+                <div id="remoteAddress" class="panel">
+
+
+
+                    <h2>Custom Online Collections</h2>
+                    <div class="content">
+                    <p>Paste the URL of a compatible online video into the field below..</p>
+                    </div>
+                    <input type="text" id="remoteTitle" placeholder="Title" >
+                    <textarea type="text" id="remoteDesc" placeholder="Description"></textarea>
+                    <input type="text" id="remoteAddressTxt"  placeholder="Paste URL here">
+                    <button id="loadRemoteBtn">Load Resource</button>
+                    <div id="remoteControls">
+                        <a title="Play" id="remotePlayLnk" class=" previewLnk linkBtn " href="#" data-videoid="" data-title="" data-description="" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/eyecandy/www.png" data-sourcetype="pasted"><i class="icon-play"></i></a>
+                        <a title="Add to project" id="remoteAddLnk"  class="addToProjectLnk linkBtn" href="#" data-videoid="" data-title="" data-description="" data-thumbnail="http://reachwill.co.uk/clipper2.1/wp-content/css/eyecandy/www.png" data-sourcetype="remote"><i class="icon-plus"></i></a>
+                    </div>
+                </div>
+                <!--END Local file browse interface-->
+
+
+                </div>
+
+
+
+            </section>
+            <!--END Collections Section-->
+
+            <!--START Project Resources Section-->
+            <section id="projectResourcesSection">
+
+                <!--START project resources pane-->
+                <div id="projectResourcesPanel" class="panel">
+
+                </div>
+                <!--END project resources pane-->
+            </section>
+            <!--END Project Resources Section-->
+
+
+            <!--START Clips Section-->
+            <section id="clipsSection">
+
+                <div id="clipsPane" class="panel">
+                </div>
+
+            </section>
+            <!--END Clips Section-->
+
+
+            <!--START Cliplists Section-->
+            <section id="cliplistsSection">
+
+
+
+                <div id="cliplistsPane" class="panel">
+
+                </div>
+
+            </section>
+            <!--END Cliplists Section-->
+
+
+
+
+            <!--START video preview interface-->
+            <div id="previewPane" class="panel">
+
+            <span class="annotationTimeDisplay" style="color:white;font-size:1.1em;"></span>
+
+                <!--START html5 videojs player-->
+                <div id="html5Player">
+                    <video id="previewer" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="400" >
+
+                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                    <script>
+                        //instantiation of vidoejs rangeslider plugin for videojs html5 player
+                        var options = {
+                                hidden: false
+                            },
+                            mplayer = videojs("previewer");
+
+                    </script>
+                </div>
+                <!--END html5 videojs player-->
+
+
+                <!--START youtube videojs player-->
+                <div id="youtubePlayer" style="display:none;">
+                    <video id="previewer-youtube" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="400" >
+
+                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                    <script>
+                        //instantiation of vidoejs rangeslider plugin
+                        var options = {
+                                hidden: false
+                            },
+                            mplayer2 = videojs("previewer-youtube");
+
+                    </script>
+                </div>
+                <!--END youtube videojs player-->
+
+
+                <!--START clipEditorControls-->
+                <div id="clipEditorControls">
+                    <a class="linkBtn" id="createClipLnk" href="#"><i class="icon-video"></i> Create Clip</a>
+                    <!--START annotationEditor-->
+                    <div id="annotationEditor">
+                        <h2>Annotations (<span class="annosBelongTo"></span>)<span class="right"><a href="#" id="closeAnnosPaneLnk"><i class="icon-cancel"></i></a></span></h2>
+                        <div class="tabs">
+                            <ul>
+                                <li><a href="#" class="tabLink" id="createAnnosLnk" data-view="createAnnosPane">Add New Annotation</a></li>
+                                <li><a href="#" class="tabLink" id="showSavedAnnosLnk" data-view="savedAnnosPane">Saved Annotations<span id="numAnnos"></span></a></li>
+
+                            </ul>
+
+                            <!--START createAnnosPane-->
+                            <div id="createAnnosPane" class="tabContent">
+                                <ul id="savedAnnosList">
+                                    <li><a href="#" class="tabLink" id="newAnnoLink"><i class="icon-plus"></i> New</a></li>
+                                    <li><a href="#" class="tabLink" id="setAnnoTimeLink"><i class="icon-stopwatch"></i>Set Time</a></li>
+                                    <li><input id="annoStartTime"></li>
+                                    <li><a href="#" class="tabLink" id="saveAnnoLink"><i class="icon-floppy"></i> Save</a></li>
+                                </ul>
+
+                                <div id="annoTimeControls">
+                                    <span class="annotationTimeDisplay"></span>
+                                </div>
+                                <textarea id="annoEditorText"></textarea>
+                            </div>
+                            <!--END createAnnosPane-->
+
+
+                            <!--START savedAnnosPane-->
+                            <div id="savedAnnosPane" class="tabContent">
+                                <ul id="savedAnnosList">
+                                    <li>Annotation text here</li>
+                                    <li>And here..</li>
+                                </ul>
+                            </div>
+                            <!--END savedAnnosPane-->
+
+                        </div>
+                        <!--END annotationEditor-->
+                    </div>
+                    <!--END clipEditorControls-->
+
+
+
+                    <div id="clipPropsEditor">
+                    <div id="vidPlayhead"><span class="playhead"></span><div class="clipTimeline"></div><div class="playhead"></div></div>
+                        <ul class="clipPropsControls">
+                        	<li>
+                            	<button id="startBtn" class="controlBtn"><i class="icon-to-start-1"></i> Start</button><input class="small" type="text" id="startTxt" >
+                                <button id="endBtn" class="controlBtn">End <i class="icon-to-end"></i></button><input class="small"  type="text" id="endTxt" >
+                                <button id="playClipBtn"  class="controlBtn"><i class="icon-to-start-1"></i> Play Clip <i class="icon-to-end"></i></button>
+                            </li>
+                            <li>
+                                <label for="clipTitleTxt">Title: </label>
+                                <input type="text" id="clipTitleTxt" placeholder="Title">
+                            </li>
+                            <li>
+                                <label for="clipDescTxt">Description: </label>
+                                <textarea id="clipDescTxt" placeholder="Clip Description"><pre></pre></textarea>
+                            </li>
+                            <li>
+                            	<label for="clipTagsTxt">Tags (Comma seperated): </label>
+                                <input type="text" id="clipTagsTxt" placeholder="Tags (comma seperated)">
+
+                            </li>
+                            <li>
+                                <a class="linkBtn" id="openAnnoEditorLnk" href="#"><i class="icon-note"></i> Annotate</a>
+                                <a class="linkBtn" id="saveClipLnk" href="#"><i class="icon-floppy"></i>Save Clip</a>
+                                <a class="linkBtn" id="closeClipPropsLnk" href="#"><i class="icon-cancel"></i>Close</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!--END video preview interface-->
+
+        </section>
+        <!--END Project Page-->
+
+    </div>
+    <!-- END wrapper-->
+
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="<?php echo $base_url; ?>js/vendors/jquery-ui-1.11.4.custom/jquery-ui.min.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/View.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/Utilities.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/renderers/YoutubeSearchRenderer.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/vendors/youtube/youtube-search.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+    <script src="<?php echo $base_url; ?>js/vendors/handlebars-v3.0.3.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/vendors/notify.min.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/vendors/jquery.highlight-5.closure.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/players/ClipperPlayer.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/managers/ProjectManager.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/pageNav/pageNav.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/communicators/DBCommunicator.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/communicators/Publisher.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+    <script src="<?php echo $base_url; ?>js/clipper/Main.js<?php echo '?v='.date("Y-m-d H:i:s", time());   ?>"></script>
+
+
+
+
+    <!--START Handlebars templates-->
+
+    <!--project thumbnail template-->
+    <!--<a class="quickEditLnk linkBtn" href="#" data-projectid="{{projectId}}"><i class="icon-pencil"></i></a>-->
+    <script id="existingProjectsTemplate" type="text/x-handlebars-template">
+        <ul>
+            {{#items}}
+            <li>
+                <div class="projectTile" data-projectId="{{projectId}}">
+                    <h2><span class="edit">{{projectTitle}}</span><a title="Quick edit title and description" class="quickEditLnk linkBtn" href="#" data-projectid="{{projectId}}"><i class="icon-pencil"></i></a></h2>
+                    <div class="projectInfo">
+                        <p class="projectDesc multiline-ellipsis">{{projectDesc}}</p>
+                        <ul class="resourceSummaryList">
+                            <li>Resources: {{projectResourceCount}}</li>
+                            <li>Cliplists: {{projectCliplistCount}}</li>
+                            <li>Clips: {{projectClipsCount}}</li>
+                        </ul>
+
+                        <a title="Open project"  class="openProjectLnk linkBtn" href="#" data-projectid="{{projectId}}"><i class="icon-book-open"></i> Open</a>
+                        <a title="Archive this project"  class=" archiveProjectLnk linkBtn " href="#" data-projectid="{{projectId}}"><i class="icon-archive"></i> Archive</a>
+                    </div>
+                </div>
+            </li>
+            {{/items}}
+        </ul>
+    </script>
+
+    <!--youtube search result template-->
+    <!--<a class=" previewLnk linkBtn " href="#" data-videoId="{{videoId}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}"><i class="icon-play"></i></a>-->
+    <script id="searchResultsTemplate" type="text/x-handlebars-template">
+        <ul>
+            {{#items}}
+
+            <li class="searchResult">
+				<a href="#" class="previewYoutubeLnk previewLnk" data-videoId="{{videoId}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}">
+					<img src="{{thumbnail}}" class="thumbnail">
+					<p class="title">{{title}}</p>
+					<p class="description">{{description}}</p>
+				</a>
+                <a title="Add to project" class="addToProjectLnk linkBtn" href="#" data-videoId="{{videoId}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}"><i class="icon-plus"></i></a>
+
+
+            </li>
+            {{/items}}
+        </ul>
+    </script>
+
+    <!--project resource list template-->
+    <script id="projectResourcesTemplate" type="text/x-handlebars-template">
+        <ul>
+            {{#items}}
+            <li class="resource">
+                <img src="{{thumbnail}}" class="thumbnail" width="35">
+                <p class="title">{{title}}</p>
+                <p class="description">{{description}}</p>
+                <a title="Play" class=" previewLnk linkBtn " href="#" data-videoid="{{videoid}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}"><i class="icon-play"></i></a>
+				<a title="Remove from project" class=" deleteLnk linkBtn " href="#" data-videoid="{{videoid}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}"><i class="icon-minus"></i></a>
+
+            </li>
+            {{/items}}
+        </ul>
+    </script>
+
+
+    <!--project cliplist list template-->
+
+<!--    <a title="Edit annotation" class=" quickEditAnnoAnnoLnk linkBtn " href="#" data-parentclipid="{{parent_clip_id}}" data-start="{{start}}" data-annoid="{{clipper_anno_id}}"><i class="icon-pencil"></i></a>
+										<a title="Set start time" class=" quickAnnoStartLnk linkBtn " href="#" data-parentclipid="{{parent_clip_id}}" data-annoid="{{clipper_anno_id}}" ><i class="icon-stopwatch"></i></a>-->
+    <script id="projectCliplistsTemplate" type="text/x-handlebars-template">
+
+        <ul id="searchList">
+            {{#items}}
+            <li class="cliplist" data-id="{{id}}">
+                <p class="title">{{title}} <span class="numClips"></span>
+
+
+				<span style="float:right;margin-right:5px;text-align:right;">
+				<a title="Play Cliplist" class=" playCliplistLnk linkBtn "><i class="icon-play"></i></a>
+					<a title="Data" href="#" class="linkBtn publishLnk" style="color:white;width:30px;font-weight:bold;display:inline-block"><i class="icon-publish"></i></a>
+					<a title="Share Cliplist"  class="shareCliplistLnk linkBtn" href="#" data-videoid="{{resource}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}" data-clipid="{{id}}" style="color:white;width:30px;font-weight:bold;display:inline-block"><i class="icon-export"></i></a>
+					<textarea readonly class="shareCliplistTxt" style="display:none;">{{baseUrl}}{{owner}}{{projectId}}</textarea>
+				</span>
+				<input type="text" id="searchTxt" placeholder="Search cliplist...">
+
+				</p>
+
+                <p class="description">{{description}}</p>
+                <div class="clipsPane">
+					<ul id="clips">
+					{{#clips}}
+						<li class="cliplevel" data-id="{{id}}">
+							<img src="{{thumbnail}}" width="35">
+							<span class="dragger"><i class="icon-updown-circle"></i></span>
+							<p class="clipTitle">{{title}}</p>
+							<p class="description">{{description}}</p>
+							<p>{{start}} - {{end}}</p>
+							<a title="Preview and edit clip" class=" previewLnk linkBtn " href="#" data-videoid="{{resource}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}" data-clipid="{{id}}"><i class="icon-play"></i></a>
+							<a title="Pause/play clip" class=" pauseLnk linkBtn " style="display:none;"><i class="icon-pause"></i></a>
+							<a title="Share Clip"   class=" shareLnk linkBtn " href="#" data-videoid="{{resource}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}" data-clipid="{{id}}"><i class="icon-export"></i></a>
+							<textarea readonly class="shareTxt" style="display:none;">{{baseUrl}}{{owner}}{{projectId}}?clipid={{id}}</textarea>
+							<a title="Delete clip" class=" deleteLnk linkBtn " href="#" data-videoid="{{resource}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}" data-clipid="{{id}}"><i class="icon-trash"></i></a>
+							<a title="Toggle annotations" href="#" class="expandLnk linkBtn " style="width:100px;"><span class="edit"><i class="icon-toggle-off"></i> Annotations </span><span class="numClipAnnotations" style="font-size:0.85em;"> ({{numAnnos}})</span></a>
+
+							<ul class="clipAnnosList">
+							{{#annos}}
+								<li>
+									<span class="annoStartText">{{start}}</span>:
+									<span class="annoText">{{text}}</span>
+									<div class="annoControls">
+										<a title="Jump to annotation" class=" playAnnoLnk linkBtn " href="#" data-parentclipid="{{parent_clip_id}}" data-start="{{start}}" data-annoid="{{clipper_anno_id}}"><i class="icon-eye"></i></a>
+
+										<a title="Share Annotation"   class=" shareAnnoLnk linkBtn " href="#" data-videoid="{{resource}}"  data-sourcetype="{{sourcetype}}" data-clipid="{{parent_clip_id}}" data-annoid="{{clipper_anno_id}}"  data-videoid="{{resource}}"  data-sourcetype="{{sourcetype}}" ><i class="icon-export"></i></a>
+										<textarea readonly class="shareAnnoTxt" style="display:none;">{{baseUrl}}{{owner}}{{projectId}}?clipid={{parent_clip_id}}&annoid={{clipper_anno_id}}</textarea>
+										<a title="Delete annotation" class=" deleteLnk linkBtn " href="#"  data-annoid="{{clipper_anno_id}}"><i class="icon-trash"></i></a>
+
+									</div>
+								</li>
+							{{/annos}}
+							</ul>
+							<p class="tags">{{tags}}</p>
+						</li>
+					{{/clips}}
+					</ul>
+				</div>
+            </li>
+            {{/items}}
+        </ul>
+
+    </script>
+<!--<a class=" quickEditLnk linkBtn " href="#" data-parentclip="{{parent_clip_id}}" data-annoid="{{clipper_anno_id}}" >Quick Edit</a>-->
+    <!--project cliplist list template-->
+    <script id="cliplistsClipsTemplate" type="text/x-handlebars-template">
+        <ul>
+            {{#items}}
+            <li class="clip" data-id="{{id}}">
+                <img src="{{thumbnail}}" class="thumbnail">
+                <p class="title">{{title}}</p>
+                <p class="bounds">Start: {{start}} - End: {{end}}</p>
+                <p class="description">{{description}}</p>
+                <a class=" previewLnk linkBtn " href="#" data-videoId="{{resource}}" data-title="{{title}}" data-description="{{description}}" data-thumbnail="{{thumbnail}}" data-sourcetype="{{sourcetype}}" data-start="{{start}}" data-end="{{end}}" data-clipid="{{id}}">View &amp; Edit</a>
+            </li>
+            {{/items}}
+        </ul>
+    </script>
+
+    <!--saved annotations list template-->
+    <script id="savedAnnosTemplate" type="text/x-handlebars-template">
+        <ul>
+            {{#items}}
+            <li class="annotation" data-id="{{id}}">
+                <p class="bounds"><span class="annoStartText">{{start}}</span> : <span class="annoText">{{text}}</span></p>
+                <a class=" quickEditLnk linkBtn " href="#" data-parentclipid="{{parentclipid}}" data-start="{{start}}" data-end="{{end}}" data-id="{{id}}"><i class="icon-pencil"></i></a>
+				<a href="#" class="quickSetAnnoTimeLnk linkBtn"  data-parentclipid="{{parentclipid}}" data-start="{{start}}" data-end="{{end}}" data-id="{{id}}"><i class="icon-stopwatch"></i></a>
+				<a  title="Jump to annotation" class=" jumpToAnnoLnk linkBtn " href="#" data-parentclipid="{{parentclipid}}" data-start="{{start}}" data-end="{{end}}" data-id="{{id}}" ><i class="icon-eye"></i></a>
+
+            </li>
+            {{/items}}
+        </ul>
+
+    </script>
+
+<!--<a class=" editLnk linkBtn " href="#" data-parentclipid="{{parentclipid}}" data-start="{{start}}" data-end="{{end}}" data-id="{{id}}">Edit in Annotation Editor</a>-->
+
+    <!--END Handlebars templates-->
+
+<!--JSON preview-->
+<pre id="json-preview"></pre>
+
+</body>
+
+</html>
