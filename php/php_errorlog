@@ -1,0 +1,4 @@
+[16-Sep-2015 05:53:27 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/usr/local/php56/pear') in /home/reachwil/public_html/clipper2/wp-content/php/saveProject.php on line 3
+[16-Sep-2015 06:00:15 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'http://reachwill.co.uk/clipper2/wp-content/php/config.php' (include_path='.:/usr/local/php56/pear') in /home/reachwil/public_html/clipper2/wp-content/php/saveProject.php on line 3
+[16-Sep-2015 06:00:50 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'http://reachwill.co.uk/clipper2/wp-content/php/config.php' (include_path='.:/usr/local/php56/pear') in /home/reachwil/public_html/clipper2/wp-content/php/saveProject.php on line 3
+[18-Sep-2015 14:09:05 CST6CDT] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home/reachwil/public_html/clipper2/wp-content/php/getAllProjects.php on line 30

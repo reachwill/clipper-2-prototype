@@ -1,0 +1,155 @@
+@import url(reset.css);
+@import url(https://fonts.googleapis.com/css?family=Play);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+@import url(fontello-53a54f47/css/fontello.css);
+@import url(fontello-53a54f47/css/animation.css);
+body {
+
+	font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+
+}
+
+h2{
+	font-size:1.75em;
+	margin:10px 0 ;
+}
+
+
+
+/************ Layout Containers *******************************/
+
+#wrapper {
+    width: 90%;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+#wrapper>header {
+    width: 100%;
+    max-width: 1065px;
+    background-color: rgba(0, 0, 0, .8);
+    padding: 10px 0 15px 15px;
+	margin-bottom:10px;
+
+}
+
+#wrapper>header h1 {
+    font-family: 'Play', sans-serif;
+    color: white;
+    font-size: 3em;
+}
+
+
+
+/************ Main Header Styles *******************************/
+
+#wrapper>header nav {
+
+}
+
+#wrapper>header nav li {
+    display: inline;
+}
+
+#wrapper>header nav li a {
+    display: inline-block;
+    padding: 5px;
+    text-align: center;
+    background-color: azure;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+/************ Preview Pane Styles *******************************/
+#previewPane{
+	float:right;
+	width:40%;
+}
+
+
+/************ Cliplist Pane Styles *******************************/
+#cliplistsPane{
+	float:left;
+	width:58%;
+	min-height:700px;
+	border:1px solid #222;
+}
+
+.cliplist .title{
+	padding:5px 0 5px 5px;
+	background:#444;
+	color:white;
+	font-size:1.1em;
+}
+
+.clipsPane img{
+	float:left;
+	margin-right:10px;
+}
+
+.clipTitle{
+	font-family:"Play", sans-serif;
+}
+
+.clipsPane p{
+	line-height:1.3em;
+	margin:5px 0;
+}
+
+.clipsPane li{
+	padding:5px 0 5px 5px;
+}
+
+.linkBtn {
+    display: inline-block;
+    padding: 5px;
+    font-size: .8em;
+    border: 1px solid #777;
+    border-radius: 5px;
+    text-align: center;
+    margin: 7px 0;
+    text-decoration: none;
+    color: black;
+	width:20%;
+}
+
+.clipPropsControls li{
+	color:black;
+}
+
+.clipAnnosList{
+	font-size:.85em;
+}
+
+.annoStartText {
+    color: orange;
+}
+
+.clipsPane > ul > li{
+	border-bottom:3px solid orange;
+}
+
+.playCliplistLnk{
+	margin:0 10px;
+}
+
+.linkBtn {
+    display: inline-block;
+    padding: 5px;
+    font-size: .8em;
+    border: 1px solid #777;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+	width:auto;
+}
+
+.greenFaded{
+	background:rgba(0,255,0,0.1) !important;
+}
+
+
+
